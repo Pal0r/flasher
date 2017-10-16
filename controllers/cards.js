@@ -22,7 +22,7 @@ exports.create = (req, res, next) => {
     (error, card) => {
       if(error || !card) return res.status(422).send({ message: "Could not update flash card" })
 
-      // Get or create the card's subject and associate the card to that subjecrt.
+      // Get or create the card's subject and associate the card to that subject.
       FlashCardSubject.findOneAndUpdate(
         { name: req.body.subject },
         { name: req.body.subject },
@@ -49,7 +49,7 @@ exports.edit = (req, res, next) => {
 
 exports.getAll = (req, res, next) => {
   FlashCard.find({}, function(err, cards) {
-    cards[0].visible = true
+    if(cards.length > 0) cards[0].visible = true
     res.status(200).json({ cards });
   })
 }
